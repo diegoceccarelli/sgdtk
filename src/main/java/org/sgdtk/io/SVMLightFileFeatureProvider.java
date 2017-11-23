@@ -159,12 +159,14 @@ public class SVMLightFileFeatureProvider implements FeatureProvider
             return null;
         }
         int pos = line.indexOf('#');
-        if (pos > 0) {
-            line = line.substring(0, pos);
-        }
 
         // This appears to be much faster than
-        final StringTokenizer tokenizer = new StringTokenizer(line, " ");
+        final StringTokenizer tokenizer;
+        if (pos > 0) {
+            tokenizer = new StringTokenizer(line.substring(0, pos), " ");
+        } else {
+            tokenizer = new StringTokenizer(line, " ");
+        }
         final int lastIdxTotal = maxFeatures - 1;
         final int label = Integer.valueOf(tokenizer.nextToken());
         final FeatureVector fv = FeatureVector.newSparse(label);
