@@ -158,6 +158,10 @@ public class SVMLightFileFeatureProvider implements FeatureProvider
         {
             return null;
         }
+        int pos = line.indexOf('#');
+        if (pos > 0) {
+            line = line.substring(0, pos);
+        }
 
         // This appears to be much faster than
         final StringTokenizer tokenizer = new StringTokenizer(line, " ");
